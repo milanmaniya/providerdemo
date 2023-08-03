@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:providerdemo/my%20practice/counter_exercise/counter_app.dart';
-import 'package:providerdemo/my%20practice/counter_exercise/counter_provider.dart';
 import 'package:providerdemo/my%20practice/form_exercise/form_ui.dart';
 import 'package:providerdemo/my%20practice/form_exercise/provider_controller.dart';
 
