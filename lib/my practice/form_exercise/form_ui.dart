@@ -1,5 +1,5 @@
 import 'dart:developer';
-
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:providerdemo/my%20practice/form_exercise/provider_controller.dart';
@@ -16,6 +16,8 @@ class _FormUiDemoState extends State<FormUiDemo> {
 
   @override
   Widget build(BuildContext context) {
+    print("Rebuild");
+    final formProvider = context.read<ProviderForm>();
     return Scaffold(
       body: SafeArea(
         child: Center(
@@ -38,10 +40,10 @@ class _FormUiDemoState extends State<FormUiDemo> {
                 RadioListTile(
                   value: 'Female',
                   title: const Text('Female'),
-                  groupValue: context.watch<ProviderForm>().gender,
+                  groupValue: formProvider.gender,
                   onChanged: (value) {
                     log(value.toString());
-                    context.read<ProviderForm>().radio(value!);
+                    formProvider.radio(value!);
                   },
                 ),
                 const SizedBox(
@@ -50,11 +52,11 @@ class _FormUiDemoState extends State<FormUiDemo> {
                 const Text('Hobby: '),
                 CheckboxListTile(
                   title: const Text('Cricket'),
-                  value: context.watch<ProviderForm>().checkBoxList[0],
+                  value: formProvider.checkBoxList[0],
                   onChanged: (value) {
                     log(value.toString());
-                    context.read<ProviderForm>().check(0, value!, 'Reading');
-                    log(context.read<ProviderForm>().hobbeyList.toString());
+                    formProvider.check(0, value!, 'Cricket');
+                    log(formProvider.hobbeyList.toString());
                   },
                 ),
                 CheckboxListTile(
@@ -62,8 +64,8 @@ class _FormUiDemoState extends State<FormUiDemo> {
                   value: context.watch<ProviderForm>().checkBoxList[1],
                   onChanged: (value) {
                     log(value.toString());
-                    context.read<ProviderForm>().check(1, value!, 'Reading');
-                    log(context.read<ProviderForm>().hobbeyList.toString());
+                    formProvider.check(1, value!, 'Reading');
+                    log(formProvider.hobbeyList.toString());
                   },
                 ),
                 CheckboxListTile(
@@ -71,8 +73,19 @@ class _FormUiDemoState extends State<FormUiDemo> {
                   value: context.watch<ProviderForm>().checkBoxList[2],
                   onChanged: (value) {
                     log(value.toString());
-                    context.read<ProviderForm>().check(2, value!, 'Writing');
-                    log(context.read<ProviderForm>().hobbeyList.toString());
+                    formProvider.check(2, value!, 'Writing');
+                    log(formProvider.hobbeyList.toString());
+                  },
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                const Text('I am Developer: '),
+                Switch(
+                  value: formProvider.isSelectedValue,
+                  onChanged: (value) {
+                    log(value.toString());
+                    formProvider.switchValue(value);
                   },
                 ),
                 const SizedBox(
@@ -81,11 +94,8 @@ class _FormUiDemoState extends State<FormUiDemo> {
                 Align(
                   alignment: Alignment.center,
                   child: ElevatedButton(
-                    onPressed: (context
-                                .watch<ProviderForm>()
-                                .gender
-                                .isNotEmpty &&
-                            context.watch<ProviderForm>().hobbeyList.isNotEmpty)
+                    onPressed: (formProvider.gender.isNotEmpty &&
+                            formProvider.hobbeyList.isNotEmpty)
                         ? () {
                             isPressed = true;
                             setState(() {});
@@ -100,9 +110,9 @@ class _FormUiDemoState extends State<FormUiDemo> {
                 Align(
                   alignment: Alignment.center,
                   child: Consumer<ProviderForm>(
-                    builder: (context, value, child) => isPressed
+                    builder: (context, obj, child) => isPressed
                         ? Text(
-                            '${value.gender.toString()} \n ${value.hobbeyList.toString()}')
+                            '${obj.gender.toString()} \n ${obj.hobbeyList.toString()}')
                         : const Text('Data not selected'),
                   ),
                 ),

@@ -4,19 +4,31 @@ class ProviderForm extends ChangeNotifier {
   String gender = '';
   List<bool> checkBoxList = [false, false, false];
   List<String> hobbeyList = [];
+  bool isSelectedValue = false;
 
   void radio(String value) {
     gender = value;
-    notifyListeners();
+    changeState;
   }
 
   void check(int index, bool value, String hobbeyName) {
     checkBoxList[index] = value;
     if (value == true) {
-      hobbeyList.add('Cricket');
+      hobbeyList.add(hobbeyName);
     } else {
-      hobbeyList.remove('Cricket');
+      hobbeyList.remove(hobbeyName);
     }
-    notifyListeners();
+    changeState;
   }
+
+  void switchValue(bool value) {
+    if (value == false) {
+      isSelectedValue = value;
+    } else {
+      isSelectedValue = false;
+    }
+    changeState;
+  }
+
+  void get changeState => notifyListeners();
 }
