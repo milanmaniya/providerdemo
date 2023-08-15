@@ -5,6 +5,8 @@ class ProviderForm extends ChangeNotifier {
   List<bool> checkBoxList = [false, false, false];
   List<String> hobbeyList = [];
   bool isSelectedValue = false;
+  String? selectedValue;
+  List<String> dropDownButtonList = ['india', 'usa', 'uk'];
 
   void radio(String value) {
     gender = value;
@@ -22,11 +24,12 @@ class ProviderForm extends ChangeNotifier {
   }
 
   void switchValue(bool value) {
-    if (value == false) {
-      isSelectedValue = value;
-    } else {
-      isSelectedValue = false;
-    }
+    isSelectedValue = value;
+    changeState;
+  }
+
+  void dropDownValue(String value) {
+    selectedValue = value;
     changeState;
   }
 
